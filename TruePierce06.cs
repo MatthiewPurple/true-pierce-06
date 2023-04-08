@@ -3,7 +3,7 @@ using HarmonyLib;
 using Il2Cpp;
 using true_pierce_06;
 
-[assembly: MelonInfo(typeof(TruePierce06), "Pierce physical and magic [including Repel] (ver. 0.6)", "1.0.0", "Matthiew Purple")]
+[assembly: MelonInfo(typeof(TruePierce06), "Pierce physical and magic [no Repel] (ver. 0.6)", "1.0.0", "Matthiew Purple")]
 [assembly: MelonGame("アトラス", "smt3hd")]
 
 namespace true_pierce_06;
@@ -30,10 +30,10 @@ public class TruePierce06 : MelonMod
     [HarmonyPatch(typeof(nbCalc), nameof(nbCalc.nbGetAisyo))]
     private class Patch2
     {
-        public static void Postfix(ref uint __result, ref int attr)
+        public static void Postfix(ref uint __result, ref int attr, ref int formindex, ref int nskill)
         {
-            // If the attack has Pierce (or equivalent) and the attack is physical/magical/almighty and it's resisted/blocked/drained/repelled
-            if (hasPierce && attr >= 0 && attr <= 5 && (__result < 100 || (__result > 999 && __result < 1000000000)))
+            // If the attack is not a repel, the attacker has Pierce, the attack is physical/magical/almighty and it's resisted/blocked/drained
+            if (nskill != -1 && hasPierce && attr >= 0 && attr <= 5 && (__result < 100 || (__result > 999 && __result < 100000) || (__result > 200000 && __result < 1000000000)))
             {
                 __result = 100; // Forces the affinity to become "neutral"
                 nbMainProcess.nbGetMainProcessData().d31_kantuu = 1; // Displays the "Pierced!" message
@@ -47,7 +47,7 @@ public class TruePierce06 : MelonMod
     {
         public static void Postfix(ref int id, ref string __result)
         {
-            if (id == 357) __result = "Physical attacks ignore \nall resistances."; // New skill description for Pierce
+            if (id == 357) __result = "Physical and Magic attacks \nignore all resistances \nexcept Repel."; // New skill description for Pierce
         }
     }
 }

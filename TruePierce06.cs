@@ -17,7 +17,7 @@ public class TruePierce06 : MelonMod
     {
         public static void Prefix(ref int sformindex)
         {
-            // If the skill in question is NOT a self-switch (from Zephhyr's mod)...
+            // If the skill in question is NOT a self-switch (from Zephhyr's mod)
             if (nbMainProcess.nbGetUnitWorkFromFormindex(sformindex) != null)
             {
                 // 357 = Pierce and 361 = Son's Oath/Raidou the Eternal

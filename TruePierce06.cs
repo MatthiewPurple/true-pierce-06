@@ -2,8 +2,6 @@
 using HarmonyLib;
 using Il2Cpp;
 using true_pierce_06;
-using Il2CppInterop.Runtime.InteropTypes.Arrays;
-using Il2Cppnewdata_H;
 
 [assembly: MelonInfo(typeof(TruePierce06), "Pierce physical repel (ver. 0.6)", "1.0.0", "Matthiew Purple")]
 [assembly: MelonGame("アトラス", "smt3hd")]

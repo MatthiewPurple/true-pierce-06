@@ -17,8 +17,12 @@ public class TruePierce06 : MelonMod
     {
         public static void Prefix(ref int sformindex)
         {
-            // 357 = Pierce and 361 = Son's Oath/Raidou the Eternal
-            hasPierce = nbMainProcess.nbGetUnitWorkFromFormindex(sformindex).skill.Contains(357) || nbMainProcess.nbGetUnitWorkFromFormindex(sformindex).skill.Contains(361);
+            // If the skill in question is NOT a self-switch (from Zephhyr's mod)...
+            if (nbMainProcess.nbGetUnitWorkFromFormindex(sformindex) != null)
+            {
+                // 357 = Pierce and 361 = Son's Oath/Raidou the Eternal
+                hasPierce = nbMainProcess.nbGetUnitWorkFromFormindex(sformindex).skill.Contains(357) || nbMainProcess.nbGetUnitWorkFromFormindex(sformindex).skill.Contains(361);
+            }
         }
     }
 

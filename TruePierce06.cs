@@ -47,7 +47,7 @@ public class TruePierce06 : MelonMod
     {
         public static void Postfix(ref int id, ref string __result)
         {
-            if (id == 357) __result = "Physical attacks ignore \nall resistances."; // New skill description for Pierce
+            if (id == 357) __result = "Physical and Magic attacks \nignore all resistances."; // New skill description for Pierce
         }
     }
 }

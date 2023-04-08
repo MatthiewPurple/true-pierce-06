@@ -17,8 +17,12 @@ public class TruePierce06 : MelonMod
     {
         public static void Prefix(ref int sformindex)
         {
-            // 357 = Pierce and 361 = Son's Oath/Raidou the Eternal
-            hasPierce = nbMainProcess.nbGetUnitWorkFromFormindex(sformindex).skill.Contains(357) || nbMainProcess.nbGetUnitWorkFromFormindex(sformindex).skill.Contains(361);
+            // If the skill in question is NOT a self-switch (from Zephhyr's mod)
+            if (nbMainProcess.nbGetUnitWorkFromFormindex(sformindex) != null)
+            {
+                // 357 = Pierce and 361 = Son's Oath/Raidou the Eternal
+                hasPierce = nbMainProcess.nbGetUnitWorkFromFormindex(sformindex).skill.Contains(357) || nbMainProcess.nbGetUnitWorkFromFormindex(sformindex).skill.Contains(361);
+            }
         }
     }
 
@@ -28,8 +32,8 @@ public class TruePierce06 : MelonMod
     {
         public static void Postfix(ref uint __result, ref int attr)
         {
-            // If the attack has Pierce (or equivalent) and the attack is physical/magical and it's resisted/blocked/drained/repelled
-            if (hasPierce && attr >= 0 && attr <= 4 && (__result < 100 || (__result > 999 && __result < 1000000000)))
+            // If the attack has Pierce (or equivalent) and the attack is physical/magical/almighty and it's resisted/blocked/drained/repelled
+            if (hasPierce && attr >= 0 && attr <= 5 && (__result < 100 || (__result > 999 && __result < 1000000000)))
             {
                 __result = 100; // Forces the affinity to become "neutral"
                 nbMainProcess.nbGetMainProcessData().d31_kantuu = 1; // Displays the "Pierced!" message

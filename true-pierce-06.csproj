@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-    <RootNamespace>pierce_physical_repel_06</RootNamespace>
-    <AssemblyName>pierce_physical_repel_06</AssemblyName>
+    <RootNamespace>pierce_everything_06</RootNamespace>
+    <AssemblyName>pierce_everything_06</AssemblyName>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>

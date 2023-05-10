@@ -15,10 +15,10 @@ public class TruePierce06 : MelonMod
     [HarmonyPatch(typeof(nbCalc), nameof(nbCalc.nbGetKoukaType))]
     private class Patch
     {
-        public static void Prefix(ref int sformindex)
+        public static void Prefix(ref int sformindex, ref int nskill)
         {
-            // If the skill in question is NOT a self-switch (from Zephhyr's mod)
-            if (nbMainProcess.nbGetUnitWorkFromFormindex(sformindex) != null)
+            // If the skill in question is NOT a self-switch (from Zephhyr's mod) nor Analyze
+            if (nbMainProcess.nbGetUnitWorkFromFormindex(sformindex) != null && nskill != 71)
             {
                 // 357 = Pierce and 361 = Son's Oath/Raidou the Eternal
                 hasPierce = nbMainProcess.nbGetUnitWorkFromFormindex(sformindex).skill.Contains(357) || nbMainProcess.nbGetUnitWorkFromFormindex(sformindex).skill.Contains(361);
@@ -30,7 +30,7 @@ public class TruePierce06 : MelonMod
     [HarmonyPatch(typeof(nbCalc), nameof(nbCalc.nbGetAisyo))]
     private class Patch2
     {
-        public static void Postfix(ref uint __result, ref int attr)
+        public static void Postfix(ref uint __result, ref int attr, ref int nskill)
         {
             // If the attack has Pierce (or equivalent) and the attack is physical/magical/almighty and it's resisted/blocked/drained/repelled
             if (hasPierce && attr >= 0 && attr <= 5 && (__result < 100 || (__result >= 65536 && __result < 2147483648)))

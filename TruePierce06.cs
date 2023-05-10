@@ -33,7 +33,7 @@ public class TruePierce06 : MelonMod
         public static void Postfix(ref uint __result, ref int attr)
         {
             // If the attack has Pierce (or equivalent) and the attack is physical and it's resisted/blocked/drained/repelled
-            if (hasPierce && attr == 0 && (__result < 100 || (__result > 999 && __result < 1000000000)))
+            if (hasPierce && attr == 0 && (__result < 100 || (__result >= 65536 && __result < 2147483648)))
             {
                 __result = 100; // Forces the affinity to become "neutral"
                 nbMainProcess.nbGetMainProcessData().d31_kantuu = 1; // Displays the "Pierced!" message

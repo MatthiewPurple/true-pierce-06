@@ -15,10 +15,10 @@ public class TruePierce06 : MelonMod
     [HarmonyPatch(typeof(nbCalc), nameof(nbCalc.nbGetKoukaType))]
     private class Patch
     {
-        public static void Prefix(ref int sformindex)
+        public static void Prefix(ref int sformindex, ref int nskill)
         {
-            // If the skill in question is NOT a self-switch (from Zephhyr's mod)
-            if (nbMainProcess.nbGetUnitWorkFromFormindex(sformindex) != null)
+            // If the skill in question is NOT a self-switch (from Zephhyr's mod) nor Analyze
+            if (nbMainProcess.nbGetUnitWorkFromFormindex(sformindex) != null && nskill != 71)
             {
                 // 357 = Pierce and 361 = Son's Oath/Raidou the Eternal
                 hasPierce = nbMainProcess.nbGetUnitWorkFromFormindex(sformindex).skill.Contains(357) || nbMainProcess.nbGetUnitWorkFromFormindex(sformindex).skill.Contains(361);

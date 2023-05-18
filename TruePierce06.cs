@@ -10,6 +10,7 @@ namespace true_pierce_06;
 public class TruePierce06 : MelonMod
 {
     private static bool hasPierce; // Remembers if the attacker has Pierce or Son's Oath/Raidou the Eternal
+    private static List<int> magicList = new List<int>() { 0, 1, 2, 3, 4, 5, 11}; // Phys, Fire, Ice, Elec, Force, Almighty, Self-destruct
 
     // Before getting the effectiveness of a skill
     [HarmonyPatch(typeof(nbCalc), nameof(nbCalc.nbGetKoukaType))]
@@ -32,8 +33,8 @@ public class TruePierce06 : MelonMod
     {
         public static void Postfix(ref uint __result, ref int attr, ref int nskill)
         {
-            // If the attack has Pierce (or equivalent) and the attack is physical/magical/almighty and it's resisted/blocked/drained/repelled
-            if (hasPierce && attr >= 0 && attr <= 5 && (__result < 100 || (__result >= 65536 && __result < 2147483648)))
+            // If the attack has Pierce (or equivalent) and the attack is physical/magical/almighty/self-destruct and it's resisted/blocked/drained/repelled
+            if (hasPierce && magicList.Contains(attr) && (__result < 100 || (__result >= 65536 && __result < 2147483648)))
             {
                 __result = 100; // Forces the affinity to become "neutral"
                 nbMainProcess.nbGetMainProcessData().d31_kantuu = 1; // Displays the "Pierced!" message

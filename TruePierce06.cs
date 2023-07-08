@@ -36,7 +36,9 @@ public class TruePierce06 : MelonMod
             // If the attack has Pierce (or equivalent) and the attack is physical/magical/almighty/self-destruct and it's resisted/blocked/drained/repelled
             if (hasPierce && magicList.Contains(attr) && (__result < 100 || (__result >= 65536 && __result < 2147483648)))
             {
-                __result = 100; // Forces the affinity to become "neutral"
+                if ((__result >> 20) % 2 == 1) __result = 100 + 1048576; // Forces the affinity to become "neutral" but keeps Freeze/Shock resistance
+                else __result = 100; // Forces the affinity to become "neutral"
+                
                 nbMainProcess.nbGetMainProcessData().d31_kantuu = 1; // Displays the "Pierced!" message
             }
         }
